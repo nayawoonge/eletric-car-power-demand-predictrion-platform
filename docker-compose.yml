@@ -1,0 +1,90 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: charging-station-backend
+    ports:
+      - "${BACKEND_PORT:-32375}:${BACKEND_PORT:-32375}"
+    environment:
+      - PYTHONPATH=/app
+      - BACKEND_HOST=${BACKEND_HOST:-0.0.0.0}
+      - BACKEND_PORT=${BACKEND_PORT:-32375}
+      - BACKEND_URL=${BACKEND_URL:-http://127.0.0.1:32375}
+      - ENVIRONMENT=${ENVIRONMENT:-development}
+      - LOG_LEVEL=${LOG_LEVEL:-INFO}
+      - ALLOWED_ORIGINS=${ALLOWED_ORIGINS}
+      - SECRET_KEY=${SECRET_KEY:-your_secret_key_here_change_in_production}
+      - CACHE_TTL=${CACHE_TTL:-300}
+      - MAX_SESSIONS_PER_QUERY=${MAX_SESSIONS_PER_QUERY:-10000}
+      - DEFAULT_DAYS_LOOKBACK=${DEFAULT_DAYS_LOOKBACK:-90}
+    volumes:
+      - ./logs:/app/logs
+      - ./:/app/data_files  # Mount CSV files
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:32375/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: charging-station-frontend
+    ports:
+      - "${FRONTEND_PORT:-32376}:${FRONTEND_PORT:-32376}"
+    environment:
+      - FRONTEND_HOST=${FRONTEND_HOST:-0.0.0.0}
+      - FRONTEND_PORT=${FRONTEND_PORT:-32376}
+      - BACKEND_URL=${BACKEND_URL:-http://127.0.0.1:32375}
+      - VITE_BACKEND_URL=${BACKEND_URL:-http://127.0.0.1:32375}
+      - VITE_ENVIRONMENT=${ENVIRONMENT:-development}
+    depends_on:
+      - backend
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:32376/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 20s
+
+  # Optional services (commented out - enable if needed)
+  # db:
+  #   image: postgres:13
+  #   environment:
+  #     POSTGRES_DB: charging_db
+  #     POSTGRES_USER: postgres
+  #     POSTGRES_PASSWORD: password
+  #   volumes:
+  #     - postgres_data:/var/lib/postgresql/data
+  #   ports:
+  #     - "5432:5432"
+
+  # redis:
+  #   image: redis:6-alpine
+  #   ports:
+  #     - "6379:6379"
+
+  prometheus:
+    image: prom/prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./backend/app/monitoring/prometheus.yml:/etc/prometheus/prometheus.yml
+    profiles:
+      - monitoring
+
+volumes:
+  logs:
+    driver: local
+  # postgres_data:  # Uncomment if using PostgreSQL
+
+networks:
+  default:
+    name: charging-station-network

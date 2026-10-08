@@ -1,0 +1,126 @@
+# Project-specific
+logs/
+venv/
+data/*
+data/predictions/
+
+# Large training data (GitHub 100MB 제한 초과 — 로컬/별도 스토리지로 관리)
+data/train_data/
+data/processed/
+
+# Model backups
+backend/app/prediction/models/_backup_pre_retrain/
+*.bak
+
+# Secrets and env files
+.env
+.env.*
+!.env.example
+!.env.production.example
+
+# Backend Python
+backend/__pycache__/
+backend/app/__pycache__/
+backend/app/*/__pycache__/
+backend/app/*/*/__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Frontend Node.js
+frontend/node_modules/
+frontend/build/
+frontend/.svelte-kit/
+frontend/dist/
+frontend/package-lock.json.bak
+frontend/*.tsbuildinfo
+frontend/vite.config.js.timestamp-*
+static/_app
+
+# Virtual Environment
+env/
+venv/
+.venv/
+ENV/
+env.bak/
+venv.bak/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Logs
+logs/
+*.log
+
+# Database
+*.db
+*.sqlite3
+
+# Environment
+.env.local
+.env.*.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Testing
+.pytest_cache/
+htmlcov/
+.coverage
+.coverage.*
+coverage.xml
+*.cover
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Cache
+.cache/
+
+# Docker
+.dockerignore
+
+# Runtime artifacts
+*.pid
+*.seed
+*.pid.lock
+
+# Temporary files
+*.tmp
+*.temp
+
+# Windows
+desktop.ini
+
+docs/

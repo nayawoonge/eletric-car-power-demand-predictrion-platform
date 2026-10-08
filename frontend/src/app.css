@@ -1,0 +1,223 @@
+/* CSS Variables for Light/Dark Theme */
+:root {
+	color-scheme: light;
+
+	/* Light theme colors */
+	--bg-primary: #f2f2f2;
+	--bg-secondary: #ffffff;
+	--bg-tertiary: #f8f9fa;
+	--text-primary: #2E56A6;
+	--text-secondary: #416CA6;
+	--text-muted: #7A91BF;
+	--border-color: #e0e0e0;
+	--shadow: rgba(46, 86, 166, 0.08);
+	--shadow-hover: rgba(46, 86, 166, 0.15);
+	--gradient-primary: linear-gradient(135deg, #2E56A6 0%, #3F61A6 100%);
+	--gradient-secondary: linear-gradient(135deg, #416CA6 0%, #7A91BF 100%);
+	--gradient-success: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+	--primary-color: #2E56A6;
+	--primary-light: #3F61A6;
+	--primary-medium: #416CA6;
+	--primary-soft: #7A91BF;
+	--neutral-light: #F2F2F2;
+	--alert-info-bg: #e8f0ff;
+	--alert-info-border: #2E56A6;
+	--alert-info-text: #2E56A6;
+	--alert-success-bg: #e8f5e8;
+	--alert-success-border: #4caf50;
+	--alert-success-text: #2e7d32;
+	--alert-warning-bg: #fff3e0;
+	--alert-warning-border: #ff9800;
+	--alert-warning-text: #ef6c00;
+	--alert-error-bg: #ffebee;
+	--alert-error-border: #f44336;
+	--alert-error-text: #c62828;
+}
+
+[data-theme="dark"] {
+	color-scheme: dark;
+
+	/* Dark theme colors */
+	--bg-primary: #0f172a;
+	--bg-secondary: #1e293b;
+	--bg-tertiary: #334155;
+	--text-primary: #f1f5f9;
+	--text-secondary: #cbd5e1;
+	--text-muted: #94a3b8;
+	--border-color: #475569;
+	--shadow: rgba(0, 0, 0, 0.3);
+	--shadow-hover: rgba(0, 0, 0, 0.5);
+	--gradient-primary: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
+	--gradient-secondary: linear-gradient(135deg, #3b82f6 0%, #60a5fa 100%);
+	--gradient-success: linear-gradient(135deg, #22a03d 0%, #1db584 100%);
+	--primary-color: #60a5fa;
+	--primary-light: #93c5fd;
+	--primary-medium: #3b82f6;
+	--primary-soft: #1e40af;
+	--neutral-light: #334155;
+}
+
+/* Global styles */
+* {
+	box-sizing: border-box;
+}
+
+body {
+	margin: 0;
+	padding: 0;
+	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+	background-color: var(--bg-primary);
+	color: var(--text-primary);
+	line-height: 1.6;
+	/* No transition - instant theme switching */
+}
+
+.header {
+	background: var(--gradient-primary);
+	color: white;
+	padding: 30px 0;
+	text-align: center;
+	box-shadow: 0 4px 6px var(--shadow);
+}
+
+.header h1 {
+	margin: 0;
+	font-size: 2.5em;
+	font-weight: 700;
+}
+
+.station-info {
+	background: var(--bg-secondary);
+	border-radius: 12px;
+	padding: 24px;
+	margin: 20px 0;
+	box-shadow: 0 4px 6px var(--shadow);
+	border: 1px solid var(--border-color);
+}
+
+.station-info h2 {
+	margin: 0 0 15px 0;
+	color: var(--text-primary);
+	font-size: 1.8em;
+}
+
+.station-location {
+	color: var(--text-secondary);
+	font-size: 1.1em;
+	margin-top: 10px;
+}
+
+/* Status indicator styles removed - not needed */
+
+.metrics-grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+	gap: 20px;
+	margin: 30px 0;
+}
+
+.charts-grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+	gap: 20px;
+	margin: 30px 0;
+}
+
+.control-panel {
+	background: var(--bg-secondary);
+	border-radius: 12px;
+	padding: 24px;
+	margin: 30px 0;
+	box-shadow: 0 4px 6px var(--shadow);
+	border: 1px solid var(--border-color);
+}
+
+.button-group {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 12px;
+	margin: 20px 0;
+}
+
+.alert {
+	padding: 16px 20px;
+	border-radius: 8px;
+	margin: 15px 0;
+	position: relative;
+}
+
+.alert-info {
+	background-color: #e3f2fd;
+	border-left: 4px solid #2196f3;
+	color: #1565c0;
+}
+
+.alert-success {
+	background-color: #e8f5e8;
+	border-left: 4px solid #4caf50;
+	color: #2e7d32;
+}
+
+.alert-warning {
+	background-color: #fff3e0;
+	border-left: 4px solid #ff9800;
+	color: #ef6c00;
+}
+
+.alert-error {
+	background-color: #ffebee;
+	border-left: 4px solid #f44336;
+	color: #c62828;
+}
+
+.results-panel {
+	background: var(--neutral-light);
+	border: 1px solid var(--border-color);
+	border-radius: 8px;
+	padding: 20px;
+	margin-top: 20px;
+	max-height: 400px;
+	overflow-y: auto;
+}
+
+.results-panel pre {
+	background: var(--bg-secondary);
+	padding: 15px;
+	border-radius: 6px;
+	overflow-x: auto;
+	font-size: 0.9em;
+	margin: 0;
+	color: var(--text-primary);
+	border: 1px solid var(--border-color);
+}
+
+/* .hidden class removed - not used anywhere */
+
+/* Unused animation classes removed - animations are handled by individual components */
+
+/* Responsive design */
+@media (max-width: 768px) {
+	.container {
+		padding: 15px;
+	}
+	
+	.header h1 {
+		font-size: 2em;
+	}
+	
+	.metrics-grid {
+		grid-template-columns: 1fr;
+	}
+	
+	.charts-grid {
+		grid-template-columns: 1fr;
+	}
+	
+	.button-group {
+		flex-direction: column;
+	}
+	
+	.chart-container {
+		height: 250px;
+	}
+}
